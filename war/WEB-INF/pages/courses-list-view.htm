@@ -1,0 +1,16 @@
+<html>
+Lista kursow
+
+<body>
+	<table class="datatable">
+		<tr>
+			<th>Kurs</th>
+		</tr>
+		<#list model["courseList"] as course>
+		<tr>
+			<td>${course}</td>
+		</tr>
+		</#list>
+	</table>
+</body>
+</html>

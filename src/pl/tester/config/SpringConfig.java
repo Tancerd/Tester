@@ -6,24 +6,32 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"pl.tester"})
 public class SpringConfig extends WebMvcConfigurerAdapter {
 
-	 @Override
-	    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	        configurer.enable();
-	    }
+		@Override
+		public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+			configurer.enable();
+		}
 
-	    @Bean
-	    public InternalResourceViewResolver getInternalResourceViewResolver() {
-	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	        resolver.setPrefix("/WEB-INF/pages/");
-	        resolver.setSuffix(".jsp");
-	        return resolver;
-	    }
+		@Bean
+		public FreeMarkerViewResolver getFreeMarkerViewResolver() {
+			FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+			resolver.setPrefix("");
+			resolver.setSuffix(".htm");
+			resolver.setCache(true);
+			return resolver;
+		}
 
+		@Bean
+		public FreeMarkerConfigurer getFreeMarkerConfigurer() {
+			FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+			configurer.setTemplateLoaderPath("/WEB-INF/pages/");
+			return configurer;
+		}
 }
