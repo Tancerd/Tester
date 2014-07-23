@@ -15,4 +15,5 @@ public class Exam {
 	private String author;
 	private Date dateCreate;
 	private List<Question> questionList;
+	private boolean accepted = false;
 }

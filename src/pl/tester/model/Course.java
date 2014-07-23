@@ -13,4 +13,5 @@ public class Course {
 	private String title;
 	private String description;
 	private List<Exam> examList;
+	private boolean accepted = false;
 }

@@ -8,19 +8,19 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.tester.mvc.repository.CoursesRepository;
+import pl.tester.mvc.service.CoursesService;
 
 
 @Controller
 @RequestMapping(value = {"/courses"})
 public class CourseListController {
 
-	@Autowired private CoursesRepository coursesRepository;
+	@Autowired private CoursesService coursesService;
 	
 	@RequestMapping(value = "/list", method = GET)
 	public String showCourseList(@ModelAttribute("model") ModelMap model) {
 
-		model.addAttribute("courseList", coursesRepository.getAllCourses());
+		model.addAttribute("courseList", coursesService.getAllAcceptedCourses());
 
 		return "courses-list-view";
 	}
