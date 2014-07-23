@@ -2,10 +2,12 @@ package pl.tester.mvc.repository;
 
 import java.util.List;
 
+import pl.tester.model.Course;
+
 
 public interface CoursesRepository {
 
-	public void addCourse(String course);
+	public void addCourse(Course course);
 
-	public List<String> getAllCourses();
+	public List<Course> getAllCourses();
 }
