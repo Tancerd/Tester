@@ -1,4 +1,11 @@
 <html>
+<head>
+	<script type="text/javascript">
+	function exams(url) {
+		window.location.href = document.URL + "/" + url;
+	}
+	</script>
+</head>
 Lista kursow
 
 <body>
@@ -6,9 +13,12 @@ Lista kursow
 		<tr>
 			<th>Kurs</th>
 		</tr>
-		<#list model["courseList"] as course>
+		<#list model["courses"] as course>
 		<tr>
 			<td>${course.title}</td>
+		</tr>
+		<tr>
+			<td><a href="javascript:exams('${course.url}')">Egzaminy</a></td>
 		</tr>
 		</#list>
 	</table>

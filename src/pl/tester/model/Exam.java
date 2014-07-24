@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 public class Exam {
 
 	private long id;
-	private String description;
-	private String author;
+	private String title = "";
+	private String description = "";
+	private String author = "";
 	private Date dateCreate;
 	private List<Question> questionList;
 	private boolean accepted = false;

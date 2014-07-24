@@ -1,3 +1,0 @@
-<html>
-Lista kursów
-</html>

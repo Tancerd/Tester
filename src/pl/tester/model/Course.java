@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 public class Course {
 
 	private long id;
-	private String title;
-	private String description;
+	private String title = "";
+	private String url = "";
+	private String description = "";
 	private List<Exam> examList;
 	private boolean accepted = false;
 }

@@ -12,7 +12,6 @@ import pl.tester.mvc.repository.CoursesRepository;
 @Service
 public class CoursesService {
 
-
 	@Autowired private CoursesRepository coursesRepository;
 
 	public void saveOrUpdate(Course course) {
@@ -35,5 +34,9 @@ public class CoursesService {
 		}
 
 		return acceptedCourses;
+	}
+
+	public Course getCourseByUrl(String url) {
+		return coursesRepository.getCourseByUrl(url);
 	}
 }

@@ -1,5 +1,7 @@
 package pl.tester.config;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +34,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 		public FreeMarkerConfigurer getFreeMarkerConfigurer() {
 			FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
 			configurer.setTemplateLoaderPath("/WEB-INF/pages/");
+			Properties properties = new Properties();
+			properties.setProperty("default_encoding", "UTF-8");
+			configurer.setFreemarkerSettings(properties);
 			return configurer;
 		}
 }

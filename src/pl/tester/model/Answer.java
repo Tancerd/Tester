@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class Answer {
 
 	private long id;
-	private String text;
+	private String text = "";
 	private boolean correct;
 }

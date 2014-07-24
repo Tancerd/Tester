@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.tester.mvc.service.CoursesService;
 
-
 @Controller
 @RequestMapping(value = {"/courses"})
-public class CourseListController {
+public class ExamListController {
 
-	@Autowired private CoursesService coursesService;
-	
-	@RequestMapping(method = GET)
-	public String showCourseList(@ModelAttribute("model") ModelMap model) {
+	@Autowired CoursesService coursesService;
 
-		model.addAttribute("courses", coursesService.getAllAcceptedCourses());
+	@RequestMapping(value = {"/{courseUrl}"}, method = GET)
+	public String showExamList(@PathVariable String courseUrl, @ModelAttribute("model") ModelMap model) {
 
-		return "courses-list-view";
+		model.addAttribute("course", coursesService.getCourseByUrl(courseUrl));
+
+		return "exams-list-view";
 	}
 }
