@@ -15,13 +15,15 @@ import pl.tester.mvc.service.CoursesService;
 @RequestMapping(value = {"/courses"})
 public class CourseListController {
 
+	private final String VIEW_NAME = "courses-list-view";
+
 	@Autowired private CoursesService coursesService;
-	
+
 	@RequestMapping(method = GET)
 	public String showCourseList(@ModelAttribute("model") ModelMap model) {
 
 		model.addAttribute("courses", coursesService.getAllAcceptedCourses());
 
-		return "courses-list-view";
+		return VIEW_NAME;
 	}
 }

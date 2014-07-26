@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import pl.tester.model.Answer;
 import pl.tester.model.Course;
 import pl.tester.model.Exam;
+import pl.tester.model.Question;
 
 @Repository
 public class CoursesRepository {
@@ -26,6 +28,24 @@ public class CoursesRepository {
 			for (int j = 0; j < 2; j++) {
 				Exam exam = new Exam();
 				exam.setTitle("Exam " + (j+1));
+				exam.setUrl(exam.getTitle().replace(" ", "_").toLowerCase());
+				exam.setAccepted(true);
+				List <Question> questions = new ArrayList<>();
+				for (int k = 0; k < 3; k++) {
+					Question question = new Question();
+					question.setAccepted(true);
+					question.setAuthor("Me");
+					question.setText("Do i like it?");
+					List<Answer> answers = new ArrayList<>();
+					for (int m = 0; m < 4; m++) {
+						Answer answer = new Answer();
+						answer.setText("Answer " + (m+1));
+						answers.add(answer);
+					}
+					question.setAnswerList(answers);
+					questions.add(question);
+				}
+				exam.setQuestionList(questions);
 				exams.add(exam);
 			}
 			course.setExamList(exams);

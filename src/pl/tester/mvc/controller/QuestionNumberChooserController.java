@@ -13,16 +13,15 @@ import pl.tester.mvc.service.CoursesService;
 
 @Controller
 @RequestMapping(value = {"/courses"})
-public class ExamListController {
+public class QuestionNumberChooserController {
 
-	private final String VIEW_NAME = "exams-list-view";
+	private final String VIEW_NAME = "question-number-chooser-view";
 
-	@Autowired private CoursesService coursesService;
+	@Autowired CoursesService coursesService;
 
-	@RequestMapping(value = {"/{courseUrl}"}, method = GET)
-	public String showExamList(@PathVariable String courseUrl, @ModelAttribute("model") ModelMap model) {
-
-		model.addAttribute("course", coursesService.getCourseByUrl(courseUrl));
+	@RequestMapping(value = {"/{courseUrl}/{examUrl}"}, method = GET, params = "!count")
+	public String showExamList(@PathVariable String courseUrl, @PathVariable String examUrl, 
+									@ModelAttribute("model") ModelMap model) {
 
 		return VIEW_NAME;
 	}

@@ -1,0 +1,28 @@
+<html>
+<head>
+<script type="text/javascript">
+	function check() {
+	}
+</script>
+</head>
+<body>
+	Lista pytań:
+	<table class="datatable">
+		<#list model["questions"] as question>
+		<tr>
+			<td>${question.text}</td>
+		</tr>
+		<#list question.answerList as answer> 
+		<tr>
+			<td>${answer.text}</td>
+		</tr>
+		</#list> 
+		<tr>
+			<td>${question.author}</td>
+		</tr>
+		<hr/>
+		</#list>
+	</table>
+	<a href="javascript:check()">Sprawdź</a>
+</body>
+</html>

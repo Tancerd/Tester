@@ -14,6 +14,7 @@ public class Exam {
 	private String title = "";
 	private String description = "";
 	private String author = "";
+	private String url = "";
 	private Date dateCreate;
 	private List<Question> questionList;
 	private boolean accepted = false;
