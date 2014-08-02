@@ -1,18 +1,19 @@
 package pl.tester.mvc.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import pl.tester.model.Answer;
 import pl.tester.model.Course;
-import pl.tester.model.Exam;
-import pl.tester.model.Question;
 
 @Repository
 public class CoursesRepository {
 
+	@Autowired private SessionFactory sessionFactory;
+
+	/*
 	private List<Course> courseList;
 
 
@@ -52,18 +53,19 @@ public class CoursesRepository {
 			courseList.add(course);
 		}
 	}
+	*/
 
 	public void saveOrUpdate(Course course) {
-		courseList.add(course);
+		sessionFactory.getCurrentSession().save(course);
 	}
 
 	public List<Course> getAllCourses() {
-		return courseList;
+		return sessionFactory.getCurrentSession().createCriteria(Course.class).list();
 	}
 
 	public Course getCourseByUrl(String url) {
 
-		for (Course course : courseList) {
+		for (Course course : getAllCourses()) {
 			if (course.getUrl().equals(url) && course.isAccepted()) {
 				return course;
 			}

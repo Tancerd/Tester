@@ -25,6 +25,10 @@ public class QuestionsService {
 		Collections.shuffle(allQuestions);
 		randomQuestions = allQuestions.subList(0, number);
 
+		for (Question question : randomQuestions) {
+			Collections.shuffle(question.getAnswerList());
+		}
+
 		return randomQuestions;
 	}
 }

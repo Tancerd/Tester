@@ -1,28 +1,62 @@
 <html>
 <head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
+	function loadQuestions() {
+
+		$.ajax({
+			url : window.location.href + "&ajax",
+			type : "GET",
+			success : function(data, textStatus) {
+				putDataOnPage(data);
+			},
+			error : function(textStatus) {
+				alert(status);
+			}
+		});
+	}
+
+	function putDataOnPage(json) {
+
+		data = JSON.parse(json);
+
+		for (var i = 0; i < data.length; i++) { 
+			$("#questions").append('<div id = "question_' + i + '">' + data[i].text + '</div>');
+			for (var j = 0; j < data[i].answerList.length; j++) {
+				$("#question_" + i).append('<input type="checkbox" id = "answer_' + i + '_' + j + '"/>' + data[i].answerList[j].text + '<br>');
+			}
+		}
+	}
+
 	function check() {
+
+		for (var i = 0; i < data.length; i++) { 
+			for (var j = 0; j < data[i].answerList.length; j++) {
+				data[i].answerList[j].checked = document.getElementById('answer_' + i + '_' + j).checked;
+			}
+		}
+
+		$.ajax({
+			url : window.location.href + "&ajax",
+			type : "POST",
+			data : data,
+			success : function(data, textStatus) {
+				
+			},
+			error : function(textStatus) {
+				alert(status);
+			}
+		});
 	}
 </script>
 </head>
-<body>
+<body onload="loadQuestions()">
+
 	Lista pytań:
-	<table class="datatable">
-		<#list model["questions"] as question>
-		<tr>
-			<td>${question.text}</td>
-		</tr>
-		<#list question.answerList as answer> 
-		<tr>
-			<td>${answer.text}</td>
-		</tr>
-		</#list> 
-		<tr>
-			<td>${question.author}</td>
-		</tr>
-		<hr/>
-		</#list>
-	</table>
+
+	<div id="questions">
+	</div>
+
 	<a href="javascript:check()">Sprawdź</a>
 </body>
 </html>
