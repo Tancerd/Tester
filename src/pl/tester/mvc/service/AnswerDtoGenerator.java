@@ -32,4 +32,31 @@ public class AnswerDtoGenerator {
 
 		return answerDtoList;
 	}
+
+	public Answer generateBack(AnswerDto answerDto) {
+
+		Answer answer = new Answer();
+
+		answer.setCorrect(answerDto.isChecked());
+		answer.setText(answerDto.getText());
+
+		return answer;
+	}
+
+	public List<Answer> generateBack(List<AnswerDto> answersDto) {
+
+		List<Answer> answers = new ArrayList<Answer>();
+
+		for (AnswerDto answerDto : answersDto) {
+
+			Answer answer = new Answer();
+	
+			answer.setCorrect(answerDto.isChecked());
+			answer.setText(answerDto.getText());
+
+			answers.add(answer);
+		}
+
+		return answers;
+	}
 }

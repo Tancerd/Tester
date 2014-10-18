@@ -1,0 +1,67 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+answers=0;
+
+function addAnswer() {
+
+	$("#answers").append('Odpowiedz ' + (answers+1) +' ' + '<input type="checkbox" id = "check_'  + answers + '"/>' + '<input type="text" id = "text_' + answers + '"/>' + '<br>');
+	answers++;
+}
+
+function saveQuestion() {
+
+	var question = { 
+			id:0,
+			text:document.getElementById('text').value,
+			author:document.getElementById('author').value,
+			answerList:[]
+	};
+
+	for (i = 0; i < answers; i++) {
+		var answer = {
+				id:0,
+				text:document.getElementById('text_' + i).value,
+				checked:document.getElementById('check_' + i).checked
+		}
+
+		question.answerList.push(answer);
+	}
+
+	question = JSON.stringify(question);
+
+	$.ajax({
+		url : window.location.href,
+		type : "POST",
+		data : question,
+		contentType: 'application/json',
+		success : function(data, textStatus) {
+			alert('ok\n' + question);
+		},
+		error : function(textStatus) {
+			$('#result').append(question);
+			alert('fail\n' + question);
+		}
+	});
+}
+</script>
+</head>
+
+<body>
+	Formularz dodawania pytania
+	<div id="result"></div>
+	<fieldset>
+		<legend>Dodaj pytanie</legend>
+			Tekst: <input type="text" id="text" /> <br /> 
+			Autor: <input type="text" id="author" /> <br /> 
+			<div id="answers">
+			
+			</div>
+		<a href="javascript:addAnswer()">Dodaj odpowiedz</a>
+		<a href="javascript:saveQuestion()">Zapisz pytanie</a>
+	</fieldset>
+
+</body>
+</html>

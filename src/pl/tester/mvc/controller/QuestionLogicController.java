@@ -48,7 +48,7 @@ public class QuestionLogicController {
 		return gson.toJson(questionList);
 	}
 
-	@RequestMapping(value = { "/{courseUrl}/{examUrl}" }, method = POST, params = {"count", "ajax"})
+	@RequestMapping(value = { "/{courseUrl}/{examUrl}" }, method = POST, params = {"count", "ajax"}, consumes = {"application/json"})
 	public @ResponseBody String checkQuestionList(@PathVariable String courseUrl,
 			@PathVariable String examUrl, @RequestBody List<QuestionDto> questionDtoList) {
 

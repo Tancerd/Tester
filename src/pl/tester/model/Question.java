@@ -1,7 +1,11 @@
 package pl.tester.model;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.AUTO;
+import static org.hibernate.annotations.FetchMode.SELECT;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +20,8 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.hibernate.annotations.Fetch;
 
 @Data
 @NoArgsConstructor
@@ -35,8 +41,9 @@ public class Question {
 
 	private Date dateCreate;
 
-	@OneToMany(mappedBy="question")
-	private List<Answer> answerList;
+	@OneToMany(mappedBy="question", fetch=EAGER, cascade=ALL)
+	@Fetch(SELECT)
+	private List<Answer> answerList = new ArrayList<>();;
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name="exam_id")

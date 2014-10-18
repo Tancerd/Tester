@@ -12,9 +12,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -32,9 +35,26 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 	private Environment environment;
 
 	@Override
-	public void configureDefaultServletHandling(
-			DefaultServletHandlerConfigurer configurer) {
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+
+		configurer.favorPathExtension(false).favorParameter(true)
+				.parameterName("mediaType").ignoreAcceptHeader(true)
+				.useJaf(false).defaultContentType(MediaType.APPLICATION_JSON)
+				.mediaType("xml", MediaType.APPLICATION_XML)
+				.mediaType("json", MediaType.APPLICATION_JSON);
+	}
+
+	@Bean
+	public MappingJackson2HttpMessageConverter converter() {
+
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+
+		return converter;
 	}
 
 	@Bean

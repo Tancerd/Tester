@@ -18,10 +18,10 @@
 
 	function putDataOnPage(json) {
 
-		data = JSON.parse(json);
-
+		data = json;
+		$("#container").append('<div id = "questions"><br></div>');
 		for (var i = 0; i < data.length; i++) { 
-			$("#questions").append('<div id = "question_' + i + '">' + data[i].text + '</div>');
+			$("#questions").append('<div id = "question_' + i + '"><hr>' + data[i].text + '<br></div>');
 			for (var j = 0; j < data[i].answerList.length; j++) {
 				$("#question_" + i).append('<input type="checkbox" id = "answer_' + i + '_' + j + '"/>' + data[i].answerList[j].text + '<br>');
 			}
@@ -36,17 +36,41 @@
 			}
 		}
 
+		data = JSON.stringify(data);
+
 		$.ajax({
 			url : window.location.href + "&ajax",
 			type : "POST",
 			data : data,
+			contentType: 'application/json',
 			success : function(data, textStatus) {
-				
+				putCheckedDataOnPage(data);
+				alert("done");
 			},
-			error : function(textStatus) {
-				alert(status);
+			error : function(data, textStatus) {
+				alert(textStatus);
 			}
 		});
+	}
+
+	function putCheckedDataOnPage(data){
+
+		$("#questions").remove();
+		$("#container").append('<div id = "questions"><br></div>');
+		for (var i = 0; i < data.length; i++) { 
+
+			$("#questions").append('<div id = "question_' + i + '"><hr>' + data[i].text + '<br></div>');
+			for (var j = 0; j < data[i].answerList.length; j++) {
+
+				$("#question_" + i).append('<input type="checkbox" id = "answer_' + i + '_' + j + '"  disabled="true"/>');
+				if (!data[i].answerList[j].checked) {
+					$("#question_" + i).append('<strike>' + data[i].answerList[j].text + '<br></strike>');
+				}
+				else {
+					$("#question_" + i).append(data[i].answerList[j].text + '<br>');
+				}
+			}
+		}
 	}
 </script>
 </head>
@@ -54,7 +78,7 @@
 
 	Lista pytań:
 
-	<div id="questions">
+	<div id="container">
 	</div>
 
 	<a href="javascript:check()">Sprawdź</a>

@@ -56,7 +56,7 @@ public class CoursesRepository {
 	*/
 
 	public void saveOrUpdate(Course course) {
-		sessionFactory.getCurrentSession().save(course);
+		sessionFactory.getCurrentSession().saveOrUpdate(course);
 	}
 
 	public List<Course> getAllCourses() {
